@@ -4,9 +4,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import numpy as np
 
 
-
+#define ave pts array needed 
+avePtsArray = []
 
 def click_trios():
 
@@ -52,7 +54,19 @@ def click_drop(option_text, element_tag):
     )
     option_element.click()
 
-
+def find_header(table_box):
+        # Extract data from the table-box
+    row = table_box.find_element(By.CLASS_NAME, "tr")
+    td_elements = row.find_elements(By.CLASS_NAME, "td")
+        
+    scrape_header(td_elements)
+    rows = table_box.find_elements(By.CLASS_NAME, "tr")[1:]
+    for row in rows:
+            
+                    # Find the specific div with class 'td' and print its text
+        td_elements = row.find_elements(By.CLASS_NAME, "td")
+        
+        scrape_header(td_elements)
 
 def scrape_header(td_elements):
         rank = td_elements[0].text
@@ -66,8 +80,24 @@ def scrape_header(td_elements):
 
         total_points = td_elements[2].text
         print(f"Total Points: {total_points}")
+        avePts = float(total_points)/12
+        global avePtsArray
+        avePtsArray.append(avePts)
+        print(f"Average Points per Game: {avePts}")
         print("")
         print("")
+
+def find_body(body):    
+            # Extract data from the table-box
+    rows = body.find_elements(By.CLASS_NAME, "tr")
+    for row in rows:
+        td_elements = row.find_elements(By.CLASS_NAME, "td")
+        for element in td_elements:
+            elementT = element.text
+            print(f"{elementT}")
+
+def scrape_body():
+    print()
 
 
 
@@ -111,22 +141,18 @@ try:
         EC.presence_of_element_located((By.CLASS_NAME, "table-body"))
     )
 
-    if table_box:
-        print("pass")
-    # Extract data from the table-box
-    rows = table_box.find_elements(By.CLASS_NAME, "tr")
-    for row in rows:
-            
-                    # Find the specific div with class 'td' and print its text
-        td_elements = row.find_elements(By.CLASS_NAME, "td")
-        
-        scrape_header(td_elements)
-        
-    scroll_box = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "scroll-area"))
+    find_header(table_box)
+
+    body = WebDriverWait(driver, 10).until(
+    EC.presence_of_all_elements_located((By.CLASS_NAME, "scroll-area.scroll-style"))
     )
+    #find_body(body)
+    for table in body:
+        print("found table")
+        
     
-    rows = scroll_box.find_elements(By.CLASS_NAME, "tr")
+
 finally:
-    # Close the browser window
+    avePtsArray = np.array(avePtsArray)# Close the browser window
+    print(avePtsArray)
     driver.quit()
