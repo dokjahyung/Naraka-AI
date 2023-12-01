@@ -85,16 +85,66 @@ def predict_y_endgame_kills(end_game_kills_input):
     return predicted_y
 
 
+def predict_y_rank_pts(rankPts_input):
+    coefficients_rankPts = fn.coefficient_eq(fn.construct_cubic_matrix(rankPtsAve), avePtsArray)
+    # Assuming coefficients_kills contains coefficients for a cubic equation
+    predicted_y = (
+        coefficients_rankPts[0] * rankPts_input ** 3 +
+        coefficients_rankPts[1] * rankPts_input ** 2 +
+        coefficients_rankPts[2] * rankPts_input +
+        coefficients_rankPts[3]  # Constant term
+    )  # Use previously computed coefficients
+    return predicted_y
+
+def predict_y_damage(damage_input):
+    coefficients_damage = fn.coefficient_eq(fn.construct_cubic_matrix(damage), avePtsArray)
+    # Assuming coefficients_damage contains coefficients for a cubic equation
+    predicted_y = (
+        coefficients_damage[0] * damage_input ** 3 +
+        coefficients_damage[1] * damage_input ** 2 +
+        coefficients_damage[2] * damage_input +
+        coefficients_damage[3]  # Constant term
+    )  # Use previously computed coefficients
+    return predicted_y
+
+
+def predict_y_healing(healing_input):
+    coefficients_healing = fn.coefficient_eq(fn.construct_cubic_matrix(healing), avePtsArray)
+    # Assuming coefficients_healing contains coefficients for a cubic equation
+    predicted_y = (
+        coefficients_healing[0] * healing_input ** 3 +
+        coefficients_healing[1] * healing_input ** 2 +
+        coefficients_healing[2] * healing_input +
+        coefficients_healing[3]  # Constant term
+    )  # Use previously computed coefficients
+    return predicted_y
+
+def predict_y_assists(assists_input):
+    coefficients_assists = fn.coefficient_eq(fn.construct_cubic_matrix(assists), avePtsArray)
+    # Assuming coefficients_assists contains coefficients for a cubic equation
+    predicted_y = (
+        coefficients_assists[0] * assists_input ** 3 +
+        coefficients_assists[1] * assists_input ** 2 +
+        coefficients_assists[2] * assists_input +
+        coefficients_assists[3]  # Constant term
+    )  # Use previously computed coefficients
+    return predicted_y
+
+
 # Function to predict y for a single input value based on user choice
 def predict_y_for_single_input():
     print("")
     print("Prediction Platform")
+    print("")
     print("1. Predict Average Points based on Kills")
     print("2. Predict Average Points based on End Game Kills")
-    print("3. Stop prediction software")
+    print("3. Predict Average Points based on Rank Points")
+    print("4. Predict Average Points based on Damage")
+    print("5. Predict Average Points based on Healing")
+    print("6. Predict Average Points based on Assists")
+    print("7. Stop prediction software")
 
-    choice = input("Enter your choice (1/2/3): ")
-
+    choice = input("Enter your choice (1/2/3/4/5/6/7): ")
     if choice == '1':
         kills_input = float(input("Enter Kills: "))
         predicted_y = predict_y_kills(kills_input)
@@ -104,6 +154,22 @@ def predict_y_for_single_input():
         predicted_y = predict_y_endgame_kills(end_game_kills_input)
         print(f"Predicted Average Points based on End Game Kills: {predicted_y}")
     elif choice == '3':
+        rankPts_input = float(input("Enter Rank Pts: "))
+        predicted_y = predict_y_rank_pts(rankPts_input)
+        print(f"Predicted Average Points based on Rank Pts: {predicted_y}")
+    elif choice == '4':
+        damage_input = float(input("Enter Damage: "))
+        predicted_y = predict_y_damage(damage_input)
+        print(f"Predicted Average Points based on Damage: {predicted_y}")
+    elif choice == '5':
+        healing_input = float(input("Enter Healing: "))
+        predicted_y = predict_y_healing(healing_input)
+        print(f"Predicted Average Points based on Healing: {predicted_y}")
+    elif choice == '6':
+        assists_input = float(input("Enter Assists: "))
+        predicted_y = predict_y_assists(assists_input)
+        print(f"Predicted Average Points based on Assists: {predicted_y}")
+    elif choice == '7':  
         sys.exit()
     else:
         print("Invalid choice. Please enter 1 or 2.")
