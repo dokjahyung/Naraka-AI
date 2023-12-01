@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import function as fn
 import sys
+import matrix
 
 
 
@@ -60,64 +61,8 @@ game2AvePtsArray = game2TotalPoints/12
 
 
 
-# Function to predict y (average points) based on kills using linear model
-def predict_y_kills(kills_input):
-    coefficients_kills = fn.coefficient_eq(fn.construct_cubic_matrix(killsAve), avePtsArray)
-    # Assuming coefficients_kills contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_kills[0] * kills_input ** 3 +
-        coefficients_kills[1] * kills_input ** 2 +
-        coefficients_kills[2] * kills_input +
-        coefficients_kills[3]  # Constant term
-    )  # Use previously computed coefficients
-    return predicted_y
-
-# Function to predict y (average points) based on endGameKills using linear model
-def predict_y_endgame_kills(end_game_kills_input):
-    coefficients_endgame_kills = fn.coefficient_eq(fn.construct_cubic_matrix(endGameKills), avePtsArray)
-    # Assuming coefficients_endgame_kills contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_endgame_kills[0] * end_game_kills_input ** 3 +
-        coefficients_endgame_kills[1] * end_game_kills_input ** 2 +
-        coefficients_endgame_kills[2] * end_game_kills_input +
-        coefficients_endgame_kills[3]  # Constant term
-    )
-    return predicted_y
-
-
-def predict_y_rank_pts(rankPts_input):
-    coefficients_rankPts = fn.coefficient_eq(fn.construct_cubic_matrix(rankPtsAve), avePtsArray)
-    # Assuming coefficients_kills contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_rankPts[0] * rankPts_input ** 3 +
-        coefficients_rankPts[1] * rankPts_input ** 2 +
-        coefficients_rankPts[2] * rankPts_input +
-        coefficients_rankPts[3]  # Constant term
-    )  # Use previously computed coefficients
-    return predicted_y
-
-def predict_y_damage(damage_input):
-    coefficients_damage = fn.coefficient_eq(fn.construct_cubic_matrix(damage), avePtsArray)
-    # Assuming coefficients_damage contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_damage[0] * damage_input ** 3 +
-        coefficients_damage[1] * damage_input ** 2 +
-        coefficients_damage[2] * damage_input +
-        coefficients_damage[3]  # Constant term
-    )  # Use previously computed coefficients
-    return predicted_y
-
-
-def predict_y_healing(healing_input):
-    coefficients_healing = fn.coefficient_eq(fn.construct_cubic_matrix(healing), avePtsArray)
-    # Assuming coefficients_healing contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_healing[0] * healing_input ** 3 +
-        coefficients_healing[1] * healing_input ** 2 +
-        coefficients_healing[2] * healing_input +
-        coefficients_healing[3]  # Constant term
-    )  # Use previously computed coefficients
-    return predicted_y
+variable_list = []
+variables = []
 
 def predict_y_assists(assists_input):
     coefficients_assists = fn.coefficient_eq(fn.construct_cubic_matrix(assists), avePtsArray)
@@ -130,9 +75,11 @@ def predict_y_assists(assists_input):
     )  # Use previously computed coefficients
     return predicted_y
 
+def predict_y(coefficients_x, variables):
+    expect_y = matrix.extend_predict(coefficients_x, variables)
+    return expect_y
 
-# Function to predict y for a single input value based on user choice
-def predict_y_for_single_input():
+def prompt():
     print("")
     print("Prediction Platform")
     print("")
@@ -142,35 +89,58 @@ def predict_y_for_single_input():
     print("4. Predict Average Points based on Damage")
     print("5. Predict Average Points based on Healing")
     print("6. Predict Average Points based on Assists")
-    print("7. Stop prediction software")
+    print("7. Predict with values")
+    print("8. Stop prediction software")
+    print("")
 
-    choice = input("Enter your choice (1/2/3/4/5/6/7): ")
+def use_model_predict(variable_list, variables, y):
+    coefficients_x = fn.coefficient_eq(matrix.cubic_form(variable_list), avePtsArray)
+    
+    predicted_y = predict_y(coefficients_x, variables)
+    return predicted_y
+# Function to predict y for a single input value based on user choice
+def predict_y_for_input():
+    global variable_list
+    global variables
+    
+    choice = input("Enter your choice (1/2/3/4/5/6/7/8): ")
     if choice == '1':
-        kills_input = float(input("Enter Kills: "))
-        predicted_y = predict_y_kills(kills_input)
-        print(f"Predicted Average Points based on Kills: {predicted_y}")
+        input_ = float(input("Enter Kills: "))
+        variable_list.append(choice)
+        variables.append(input_)
     elif choice == '2':
-        end_game_kills_input = float(input("Enter End Game Kills: "))
-        predicted_y = predict_y_endgame_kills(end_game_kills_input)
-        print(f"Predicted Average Points based on End Game Kills: {predicted_y}")
+        input_ = float(input("Enter End Game Kills: "))
+        variable_list.append(choice)
+        variables.append(input_)
     elif choice == '3':
-        rankPts_input = float(input("Enter Rank Pts: "))
-        predicted_y = predict_y_rank_pts(rankPts_input)
-        print(f"Predicted Average Points based on Rank Pts: {predicted_y}")
+        input_ = float(input("Enter Rank Pts: "))
+        variable_list.append(choice)
+        variables.append(input_)
     elif choice == '4':
-        damage_input = float(input("Enter Damage: "))
-        predicted_y = predict_y_damage(damage_input)
-        print(f"Predicted Average Points based on Damage: {predicted_y}")
+        input_ = float(input("Enter Damage: "))
+        variable_list.append(choice)
+        variables.append(input_)
     elif choice == '5':
-        healing_input = float(input("Enter Healing: "))
-        predicted_y = predict_y_healing(healing_input)
-        print(f"Predicted Average Points based on Healing: {predicted_y}")
+        input_ = float(input("Enter Healing: "))
+        variable_list.append(choice)
+        variables.append(input_)
     elif choice == '6':
-        assists_input = float(input("Enter Assists: "))
-        predicted_y = predict_y_assists(assists_input)
-        print(f"Predicted Average Points based on Assists: {predicted_y}")
-    elif choice == '7':  
+        input_ = float(input("Enter Assists: "))
+        variable_list.append(choice)
+        variables.append(input_)
+    elif choice == '7':
+        predicted_y_ = use_model_predict(variable_list, variables, avePtsArray)
+        print(f"Hello sir your total points would be: {predicted_y_}")
+        variable_list = []
+        variables = []
+    elif choice == '8':  
         sys.exit()
     else:
-        print("Invalid choice. Please enter 1 or 2.")
-    predict_y_for_single_input()
+        print("Invalid choice. Please try again.")
+    print(len(variable_list))
+    prompt()
+    predict_y_for_input()
+
+def prediction_software():
+    prompt()
+    predict_y_for_input()
