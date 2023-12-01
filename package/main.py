@@ -14,6 +14,9 @@ damage_interact_healing_rsq = fn.r_squared_linear_interact(healing, avePtsArray,
 print(f" damage interacted w/ healing r_SQ = {damage_interact_healing_rsq}")
 rankPtsAve_interact_healing_rsq = fn.r_squared_linear_interact(rankPtsAve, avePtsArray, healing)
 print(f" rank pts interacted w/ healing r_SQ = {rankPtsAve_interact_healing_rsq}")
+killsAve_interact_assists_rsq = fn.r_squared_linear_interact(killsAve, avePtsArray, assists)
+print(f" killsAve further interacted with assists r_SQ = {killsAve_interact_assists_rsq}")
+
 
 killsAve_cubic_rsq = fn.r_squared_cubic(killsAve, avePtsArray)
 print(f" killsAve r SQ = {killsAve_cubic_rsq}")
@@ -28,6 +31,7 @@ print(f" assists r SQ = {assists_cubic_rsq}")
 endGameKills_cubic_rsq = fn.r_squared_cubic(endGameKills, avePtsArray)
 print(f" endGameKills r SQ = {endGameKills_cubic_rsq}")
 
+
 pred.predict_y_for_single_input()
 '''
 fn.lstsq_construct(killsAve, avePtsArray, 'killsAve', 'avePtsArray', 'r')
@@ -36,6 +40,4 @@ fn.lstsq_construct(healing, avePtsArray, 'healing', 'avePtsArray', 'g')
 fn.lstsq_construct(damage, avePtsArray, 'damage', 'avePtsArray', 'b')
 fn.lstsq_construct(assists, avePtsArray, 'assists', 'avePtsArray', 'b')
 fn.lstsq_construct(endGameKills, avePtsArray, 'endGameKills', 'avePtsArray', 'b')
-
-plt.show()
 '''
