@@ -137,7 +137,6 @@ def predict_y_for_input():
         sys.exit()
     else:
         print("Invalid choice. Please try again.")
-    print(len(variable_list))
     prompt()
     predict_y_for_input()
 
