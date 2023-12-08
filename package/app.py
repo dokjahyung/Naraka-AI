@@ -53,7 +53,7 @@ def create_or_remove_text_boxes(selected_values):
     for idx, value in enumerate(selected_values):
         if value == 1 and text_boxes[idx] is None:
             text_boxes[idx] = tk.Entry(root)
-            text_boxes[idx].grid(row=idx, column=1, padx=5, pady=5, sticky=tk.W)  # Use 'sticky' to align the text boxes
+            text_boxes[idx].grid(row=idx, column=2, padx=5, pady=5, sticky=tk.W)  # Use 'sticky' to align the text boxes
         elif value == 0 and text_boxes[idx] is not None:
             text_boxes[idx].destroy()
             text_boxes[idx] = None
@@ -77,7 +77,7 @@ def create_or_remove_text_boxes(selected_values):
     for idx, value in enumerate(selected_values):
         if value == 1 and text_boxes[idx] is None:
             text_boxes[idx] = tk.Entry(root)
-            text_boxes[idx].grid(row=idx, column=1, padx=5, pady=5, sticky=tk.W)  # Use 'sticky' to align the text boxes
+            text_boxes[idx].grid(row=idx, column=2, padx=5, pady=5, sticky=tk.W)  # Use 'sticky' to align the text boxes
         elif value == 0 and text_boxes[idx] is not None:
             text_boxes[idx].destroy()
             text_boxes[idx] = None
