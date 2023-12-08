@@ -69,7 +69,6 @@ def r_squared_cubic(variable_list, y):
     r_squared_ = 1 - (residual_total_ / r_sub_mean_)
     return r_squared_
 
-
 def present_cubic_rsq(variable_list, text, y):
     cubic_rsq = r_squared_cubic(variable_list, y)
     print(f" {text} r_SQ = {cubic_rsq}")

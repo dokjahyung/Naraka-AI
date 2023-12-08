@@ -1,6 +1,5 @@
 import function as fn
 from prediction import killsAve, endGameKills, avePtsArray, rankPtsAve, healing, damage, assists
-
 import itertools
 
 #perma nested loops for the win
@@ -19,5 +18,3 @@ def factorial_rsq(factor, y):
                             else:
                                 calc_dict[tuple(var)] = fn.r_squared_cubic(var, y)
                             print(f"{var} : {calc_dict[tuple(var)]}")
-
-

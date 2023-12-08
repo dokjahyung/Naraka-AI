@@ -10,6 +10,7 @@ data_dict = {
     '5' : endGameKills,
     '6' : assists 
 }
+
 def discern_var(var):
     if data_dict.get(var) is not None:
         attribute = data_dict.get(var)
