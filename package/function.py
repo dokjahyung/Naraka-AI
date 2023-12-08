@@ -30,19 +30,29 @@ def lstsq_cubic_construct(variable_list, x, y, label_x, label_y, color):
     print(predicted_x_y)
     plot(x, y, predicted_x_y, label_x, label_y, color)
 
-def expected_y(coefficients_x, variable_list, point):
-    expect_y = matrix.extend_equation(coefficients_x, variable_list, point)
+def expected_y(coefficients_x, variable_list, point, degree):
+    expect_y = matrix.extend_equation(coefficients_x, variable_list, point, degree)
     return expect_y
 
 def residual(y, expect_y):
     return (y - expect_y)
 
-def residual_cubic_total(variable_list, y, coefficients_x):
+def residual_linear_total(variable_list, y, coefficients_x):
     r_total = 0
     num_points = y.size
     
     for point in range(num_points):
-        expect_y = expected_y(coefficients_x, variable_list, point)
+        expect_y = expected_y(coefficients_x, variable_list, point, 1)
+        r_total += residual(y[point], expect_y) ** 2
+    
+    return r_total
+
+def residual_total(variable_list, y, coefficients_x, degree):
+    r_total = 0
+    num_points = y.size
+    
+    for point in range(num_points):
+        expect_y = expected_y(coefficients_x, variable_list, point, degree)
         r_total += residual(y[point], expect_y) ** 2
     
     return r_total
@@ -60,15 +70,25 @@ def TSS(y):
         total += (point - mean_y_)**2
     return total
 
-def r_squared_cubic(variable_list, y):
+def r_squared(variable_list, y, degree):
     r_sub_mean_ = TSS(y)
-    A_x = matrix.cubic_form(variable_list)
+    if degree == 3:
+        A_x = matrix.cubic_form(variable_list)
+    elif degree == 1:
+        A_x = matrix.linear_form(variable_list)
+    else:
+        pass
+    
     coefficients_x = coefficient_eq(A_x, y)
-    residual_total_ = residual_cubic_total(variable_list, y, coefficients_x)
+    residual_total_ = residual_total(variable_list, y, coefficients_x, degree)
     
     r_squared_ = 1 - (residual_total_ / r_sub_mean_)
     return r_squared_
 
 def present_cubic_rsq(variable_list, text, y):
-    cubic_rsq = r_squared_cubic(variable_list, y)
-    print(f" {text} r_SQ = {cubic_rsq}")
+    cubic_rsq = r_squared(variable_list, y)
+    print(f" {text} cubic r_SQ = {cubic_rsq}")
+    
+def present_linear_rsq(variable_list, text, y):
+    cubic_rsq = r_squared(variable_list, y, 1)
+    print(f" {text} linear r_SQ = {cubic_rsq}")

@@ -59,12 +59,18 @@ def create_or_remove_text_boxes(selected_values):
             text_boxes[idx] = None
 
 
-def predict_input():
+def predict_input(degree):
     selected_values = get_checkbox_values()
     selected_labels = ['1', '2', '3', '4', '5', '6']
     results = get_text_box_values(selected_labels)
     result_keys, result_values = process_results(results)
-    predicted_y = pred.use_model_predict(result_keys, result_values, avePtsArray)
+    
+        # Ensure 'End Game Kills' are not greater than 'Kills'
+    if handle.kills_endgame_condition(result_keys, result_values) == False:
+        show_error("End Game Kills cannot be greater than Kills")
+        return
+
+    predicted_y = pred.use_model_predict(result_keys, result_values, avePtsArray, degree)
     display_predicted_value(predicted_y)
     show_error("")
 
@@ -170,8 +176,12 @@ error_label.grid(row=len(checkboxes) + 3, columnspan=2)  # Adjust position based
 output_label = tk.Label(root, text="Predicted Y: ")
 output_label.grid(row=len(checkboxes) + 1, columnspan=2)
 
-predict_button = tk.Button(root, text="Predict Total Score", command=predict_input)
-predict_button.grid(row=len(checkboxes), column=0, columnspan=2, pady=10)
+linear_button = tk.Button(root, text="Predict Total Score w/ Linear Least Square Regression", command=lambda: predict_input(1))
+linear_button.grid(row=len(checkboxes), column=0, columnspan=2, pady=10)
+
+
+cubic_button = tk.Button(root, text="Predict Total Score w/ Cubic Least Square Regression", command=lambda: predict_input(3))
+cubic_button.grid(row=len(checkboxes)+2, column=0, columnspan=2, pady=10)
 
 vertical_shift = 50
 root.mainloop()

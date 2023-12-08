@@ -69,19 +69,9 @@ game2AvePtsArray = game2TotalPoints/12
 variable_list = []
 variables = []
 
-def predict_y_assists(assists_input):
-    coefficients_assists = fn.coefficient_eq(fn.construct_cubic_matrix(assists), avePtsArray)
-    # Assuming coefficients_assists contains coefficients for a cubic equation
-    predicted_y = (
-        coefficients_assists[0] * assists_input ** 3 +
-        coefficients_assists[1] * assists_input ** 2 +
-        coefficients_assists[2] * assists_input +
-        coefficients_assists[3]  # Constant term
-    )  # Use previously computed coefficients
-    return predicted_y
 
-def predict_y(coefficients_x, variables):
-    expect_y = matrix.extend_predict(coefficients_x, variables)
+def predict_y(coefficients_x, variables, degree):
+    expect_y = matrix.extend_predict(coefficients_x, variables, degree)
     return expect_y
 
 def prompt():
@@ -98,10 +88,12 @@ def prompt():
     print("8. Stop prediction software")
     print("")
 
-def use_model_predict(variable_list, variables, y):
-    coefficients_x = fn.coefficient_eq(matrix.cubic_form(variable_list), y)
-    
-    predicted_y = predict_y(coefficients_x, variables)
+def use_model_predict(variable_list, variables, y, degree):
+    if degree == 1:
+        coefficients_x = fn.coefficient_eq(matrix.linear_form(variable_list), y)
+    elif degree == 3:
+        coefficients_x = fn.coefficient_eq(matrix.cubic_form(variable_list), y)
+    predicted_y = predict_y(coefficients_x, variables, degree)
     return predicted_y
 # Function to predict y for a single input value based on user choice
 def predict_y_for_input():
@@ -135,7 +127,7 @@ def predict_y_for_input():
         variable_list.append(choice)
         variables.append(handle.validate_range(input_, accepted_assists))
     elif choice == '7':
-        predicted_y_ = use_model_predict(variable_list, variables, avePtsArray)
+        predicted_y_ = use_model_predict(variable_list, variables, avePtsArray, 3)
         print(f"Hello sir your total points would be: {predicted_y_}")
         variable_list = []
         variables = []

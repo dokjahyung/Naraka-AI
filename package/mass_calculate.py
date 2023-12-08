@@ -3,7 +3,7 @@ from prediction import killsAve, endGameKills, avePtsArray, rankPtsAve, healing,
 import itertools
 
 #perma nested loops for the win
-def factorial_rsq(factor, y):
+def factorial_rsq(factor, y, degree):
     calc_dict = {}
     for i in range(1, factor):
         for j in range(1, factor):
@@ -14,7 +14,7 @@ def factorial_rsq(factor, y):
                     if len(set(var)) == len(var):  # Check for unique elements in the combination
                         if calc_dict.get(tuple(var)) is None and calc_dict.get(tuple(var[::-1])) is None:
                             if len(var) == 1:
-                                calc_dict[tuple(var)] = fn.r_squared_cubic(var[0], y)
+                                calc_dict[tuple(var)] = fn.r_squared(var[0], y, degree)
                             else:
-                                calc_dict[tuple(var)] = fn.r_squared_cubic(var, y)
+                                calc_dict[tuple(var)] = fn.r_squared(var, y, degree)
                             print(f"{var} : {calc_dict[tuple(var)]}")

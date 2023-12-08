@@ -17,3 +17,10 @@ def validate_range(val, range_):
         input_ = float(input(f"Please type a number between accepted range ({range_[0]} and {range_[1]})"))
         return validate_range(input_, range_)
         
+def kills_endgame_condition(result_keys, result_values):
+    idx_kills = result_keys.index('1') if '1' in result_keys else None
+    idx_endGame = result_keys.index('2') if '2' in result_keys else None
+    if idx_kills is not None and idx_endGame is not None:
+        if result_values[idx_endGame] > result_values[idx_kills]:
+            return False
+    return True
