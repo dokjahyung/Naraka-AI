@@ -7,16 +7,15 @@
 
 ## How to install
   ### preparations
-    must have numpy and matplotlib installed.
-
-    to do this got to your CMD or terminal for MAC and type 
-      "pip3 install numpy matplotlib"
+     Thanks to pyinstaller you only need to download the 'dist' folder
 
   ### Step 1
-    Please download the entire package folder from the github
+    go to the 'dist/app/app.exe'
     
   ### Step 2
-    go to the main.py folder and run script
+    run app exe and enjoy
 
 ## Features
-  Working on getting first version out which should include typing in specific stats in any order or combination and retrieve a guess of what the ave. points that game would be. this would be by getting a manual calculation of the least squares regressions of training data and using it on stats that you provide. 
+  VERSION 1.0.1 is out. This version shows the basic backbone of project however lacks in the much needed data from website. Will either need to create a better webscraping program and/or compile a better list of other stat fields as well i.e yang participations, yang wins, off spawn wins, etc.
+
+  This only uses a least squares model built with fewer dependencies than basic AI models out there like scikit however may be lacking in performance as well escpecially when data is either outside specified ranges or in a "unique" arrangement of values.
