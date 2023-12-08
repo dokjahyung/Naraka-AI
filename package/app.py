@@ -3,6 +3,7 @@ import function as fn
 import prediction as pred
 from prediction import avePtsArray, accepted_assists, accepted_damage, accepted_endGame, accepted_healing, accepted_kills, accepted_rank
 import handle
+import filepath as file
 
 def get_checkbox_values():
     return [var1.get(), var2.get(), var3.get(), var4.get(), var5.get(), var6.get()]
@@ -124,7 +125,7 @@ window_height = 600
 root.geometry(f"{window_width}x{window_height}")
 
 # Add image file 
-bg = tk.PhotoImage(file = "moonsun.png")
+bg = tk.PhotoImage(file = file.resource_path("moonsun.png"))
 bg_label = tk.Label(root, image=bg)
 bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
