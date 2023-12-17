@@ -15,20 +15,24 @@ def lstSq(A_x, y):
     return predicted_x_y
     
 
-def plot(x, y, predicted_x_y, label_x, label_y, color):
-    fig1, ax1 = plt.subplots()
-    
-    ax1.scatter(x, y, c=color, label='Data points')
-    ax1.plot(x, predicted_x_y, color='blue', label='Regression line')
+def plot(x, z, y, predicted_x_y, label_x, label_z, label_y, color):
+    fig1 = plt.figure()
+    ax1 = fig1.add_subplot(111, projection='3d')
+
+    ax1.scatter(x, z, y, c=color, label='Data points')
+    ax1.plot(x, z, predicted_x_y, color='blue', label='Regression line')
     ax1.set_xlabel(label_x)
-    ax1.set_ylabel(label_y)
+    ax1.set_ylabel(label_z)
+    ax1.set_zlabel(label_y)
     ax1.legend()
+
+    plt.show()
     
-def lstsq_cubic_construct(variable_list, x, y, label_x, label_y, color):
-    A_x = matrix.cubic_form(variable_list)
+def lstsq_cubic_construct(variable_list, x, z, y, label_x, label_z, label_y, color):
+    A_x = matrix.linear_form(variable_list)
     predicted_x_y = lstSq(A_x, y)
     print(predicted_x_y)
-    plot(x, y, predicted_x_y, label_x, label_y, color)
+    plot(x, z, y, predicted_x_y, label_x, label_z, label_y, color)
 
 def expected_y(coefficients_x, variable_list, point, degree):
     expect_y = matrix.extend_equation(coefficients_x, variable_list, point, degree)

@@ -1,12 +1,12 @@
 import tkinter as tk
 import function as fn
 import prediction as pred
-from prediction import avePtsArray, accepted_assists, accepted_damage, accepted_endGame, accepted_healing, accepted_kills, accepted_rank
+from prediction import avePtsArray, accepted_assists, accepted_damage, accepted_endGame, accepted_healing, accepted_kills, accepted_rank, accepted_offSpawn, accepted_yangPart, accepted_yangWin
 import handle
 import filepath as file
 
 def get_checkbox_values():
-    return [var1.get(), var2.get(), var3.get(), var4.get(), var5.get(), var6.get()]
+    return [var1.get(), var2.get(), var3.get(), var4.get(), var5.get(), var6.get(), var7.get(), var8.get(), var9.get()]
 
 def create_or_remove_text_boxes(selected_values):
     for idx, value in enumerate(selected_values):
@@ -24,7 +24,10 @@ def get_accepted_range(choice):
         '3': accepted_rank,
         '4': accepted_damage,
         '5': accepted_healing,
-        '6': accepted_assists
+        '6': accepted_assists,
+        '7': accepted_yangPart,
+        '8': accepted_yangWin,
+        '9': accepted_offSpawn
     }
     return ranges.get(choice)
 
@@ -47,7 +50,7 @@ def show_selected():
     create_or_remove_text_boxes(get_checkbox_values())
 
 def get_checkbox_values():
-    return [var1.get(), var2.get(), var3.get(), var4.get(), var5.get(), var6.get()]
+    return [var1.get(), var2.get(), var3.get(), var4.get(), var5.get(), var6.get(), var7.get(), var8.get(), var9.get()]
 
 def create_or_remove_text_boxes(selected_values):
     for idx, value in enumerate(selected_values):
@@ -61,7 +64,7 @@ def create_or_remove_text_boxes(selected_values):
 
 def predict_input(degree):
     selected_values = get_checkbox_values()
-    selected_labels = ['1', '2', '3', '4', '5', '6']
+    selected_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     results = get_text_box_values(selected_labels)
     result_keys, result_values = process_results(results)
     
@@ -141,6 +144,9 @@ var3 = tk.IntVar()
 var4 = tk.IntVar()
 var5 = tk.IntVar()
 var6 = tk.IntVar()
+var7 = tk.IntVar()
+var8 = tk.IntVar()
+var9 = tk.IntVar()
 
 checkboxes = [
     ("Kills", var1),
@@ -148,7 +154,10 @@ checkboxes = [
     ("Rank Points", var3),
     ("Damage", var4),
     ("Healing", var5),
-    ("Assists", var6)
+    ("Assists", var6),
+    ("Yang Participation", var7),
+    ("Yang Win Rate", var8),
+    ("Off Spawn Wins", var9)
 ]
 
 text_boxes = [None] * len(checkboxes)
@@ -168,7 +177,13 @@ damage_label.grid(row=len(checkboxes) + 12, columnspan=2)
 healing_label = tk.Label(root, text=f"Healing accepted range ({accepted_healing[0]} and {accepted_healing[1]})", fg="green")  # Customize color if needed
 healing_label.grid(row=len(checkboxes) + 14, columnspan=2)
 assists_label = tk.Label(root, text=f"Assists accepted range ({accepted_assists[0]} and {accepted_assists[1]})", fg="green")  # Customize color if needed
-assists_label.grid(row=len(checkboxes) + 16, columnspan=2)
+assists_label.grid(row=len(checkboxes) + 15, columnspan=2)
+yangPart_label = tk.Label(root, text=f"Yang Participation accepted range ({accepted_yangPart[0]} and {accepted_yangPart[1]})", fg="green")  # Customize color if needed
+yangPart_label.grid(row=len(checkboxes) + 16, columnspan=2)
+yangWin_label = tk.Label(root, text=f"Yang Win Rate accepted range ({accepted_yangWin[0]} and {accepted_yangWin[1]})", fg="green")  # Customize color if needed
+yangWin_label.grid(row=len(checkboxes) + 17, columnspan=2)
+offSpawn_label = tk.Label(root, text=f"Off Spawn Kill accepted range ({accepted_offSpawn[0]} and {accepted_offSpawn[1]})", fg="green")  # Customize color if needed
+offSpawn_label.grid(row=len(checkboxes) + 18, columnspan=2)
 
 error_label = tk.Label(root, text="", fg="red")  # Customize color if needed
 error_label.grid(row=len(checkboxes) + 3, columnspan=2)  # Adjust position based on your layout

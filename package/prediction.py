@@ -16,13 +16,13 @@ accepted_kills = handle.accept_range(killsAve)
 #placement points
 
 game1RankPtsAve = np.array([3, 1.8, 1.5, 1.5, 1.9, 1, 1, 0.8, 1.1, 0.8, 0.8, 0.7, 0.7, 0.8])
-game2RankPtsAve = np.array([2.3, 2.2, 2, 1.7, 1.2, 2.2, 1.2, 1, 1.2, 0.8, 0.7, 0.2, 0.2, 0.6])
+game2RankPtsAve = np.array([2.2, 2.2, 2.3, 2, 1, 1.2, 1.7, .6, 1.2, 1.2, .7, .8, .2, .2])
 game3RankPtsAve = np.array([2.9, 2.5, 1.8, .9, 1.9, .8, 1.8, 1.1, 1.3, .7, .2, .6, .5, .7])
 rankPtsAve = np.concatenate((game1RankPtsAve, game3RankPtsAve))
 accepted_rank = handle.accept_range(rankPtsAve)
 #this was perhaps the strongest r value in the sets, kills at last 2-5 min of game
 game1EndGameKills = np.array([4.3, 2.3, 2.1, 2.6, 1.2, 1, 1.3, 1.3, 1.1, 0.8, 1.5, 0.6, 0.3, 0.4])
-game2EndGameKills = np.array([3.2, 2.7, 2.2, 1.8, 1.3, 1.3, 1.2, 0.8, 0.8, 0.5, 0.2, 0, 0, 0])
+game2EndGameKills = np.array([1.3, 2.7, 3.2, 2.2, .8, .8, 1.8, 0, 1.2, 1.3, .2, .5, 0, 0])
 game3EndGameKills = np.array([5, 2.3, 2.5, 2.3, 1.7, .8, 1.3, .8, .5, .2, 0, .8, .5, 0])
 endGameKills = np.concatenate((game1EndGameKills, game3EndGameKills))
 accepted_endGame = handle.accept_range(endGameKills)
@@ -30,7 +30,7 @@ accepted_endGame = handle.accept_range(endGameKills)
 #had great placement points and kill multipliers. Common misconception I found here as a veteran player is that although the game has tried to curb passive gameplay
 #The strongest strategy is to be aggressive only in no risk situations and remain passive
 game1Healing = np.array([25462.80, 23775.10, 26110.30, 25027.90, 20871.10, 24847.20, 19557.70, 17014.70, 22304.00, 16935.30, 16394.90, 18502.00, 16598.70, 16904.60])
-game2Healing = np.array([30805, 25392.2, 25180.4, 21256.1, 20698.2, 18997.8, 18007.3, 17773.1, 17756.6, 16651.6, 16097.5, 14364.3, 13664.7, 9060.3])
+game2Healing = np.array([30805, 25180.4, 16097.5, 18007.3, 14364.3, 25392.2, 20698.2, 18997.8, 17773.1, 17756.6, 21256.6, 16651.6, 9060.3, 13664.7])
 game3Healing = np.array([31772.1, 26475, 18710.6, 21635.6, 31073.4, 24787.9, 27313, 19291.7, 19258.3, 21362.1, 15192.2, 16876.8, 13288.2, 12623.5])
 healing = np.concatenate((game1Healing, game3Healing))
 accepted_healing = handle.accept_range(healing)
@@ -42,11 +42,30 @@ damage = np.concatenate((game1Damage, game3Damage))
 accepted_damage = handle.accept_range(damage)
 #teams can only have a max of 2x there kills. in excel saw a deep correlation between assists and points. more coordinated teams tend to do well
 game1Assists = np.array([13.5, 11.6, 11.5, 9.2, 7.3, 9.4, 9.1, 7.8, 5.6, 6.1, 5, 6, 5.3, 4.5])
-game2Assists = np.array([13.2, 4, 11.8, 3.3, 5.3, 10.8, 8.3, 10.7, 6.5, 9.3, 11.8, 7, 10.8, 9])
+game2Assists = np.array([11.8, 10.8, 13.2, 10.7, 11.8, 10.8, 9, 8.3, 5.3, 6.5, 9.3, 7, 4, 3.3])
 game3Assists = np.array([13, 12.5, 10.5, 10.7, 11.8, 10.3, 8.2, 6.8, 6.7, 6.3, 7.8, 4.7, 5, 3.8])
 assists = np.concatenate((game1Assists, game3Assists))
 accepted_assists = handle.accept_range(assists)
 
+
+#yang participation
+game1YangPart = np.array([.4, 0, .8, .6, .3, .2, .7, .5, .6, .5, .3, .2, .2, .3])
+game2YangPart = np.array([.5, .5, .5, .5, .3, .7, .2, .5, .7, .2, .8, .7, 0, .3])
+game3YangPart = np.array([0, .8, 1, .5, .3, .3, .8, 0, 0, .3, .3, .3, 0, .3])
+yangPart = np.concatenate((game1YangPart, game3YangPart))
+accepted_yangPart = handle.accept_range(yangPart)
+# yang win rate
+game1YangWin = np.array([.4, 0, .8, .6, .5, 1, .9, .5, .6, .5, .2, 0, .7, .5])
+game2YangWin = np.array([.7, .3, 1, .3, 1, .5, 1, .7, 0, 1, .4, .8, 0, .5])
+game3YangWin = np.array([0, 1, .7, .3, 1, 1, .6, 0, 0, 0, 0, 0, 0, .5])
+yangWin = np.concatenate((game1YangWin, game3YangWin))
+accepted_yangWin = handle.accept_range(yangWin)
+#off spawn win
+game1OffSpawn = np.array([1.2, .8, 1.1, 1, 1.2, 2.2, 1.3, 1.2, .7, 1, 1.1, .8, .8, .9])
+game2OffSpawn = np.array([1.3, 1.5, 1.3, 1, 1.7, 2.5, .8, 1.7, .2, .5, 1.3, 1, 2, .8])
+game3OffSpawn = np.array([5, 2.3, 2.5, 2.3, 1.7, .8, 1.3, .8, .5, .2, 0, .8, .5, 0])
+offSpawn = np.concatenate((game1OffSpawn, game3OffSpawn))
+accepted_offSpawn = handle.accept_range(offSpawn)
 #possible y values
 #win rate %
 winRateCent = np.array([0.2619047619, 0.2023809524, 0.1071428571, 0.1428571429, 0.1388888889,
@@ -58,7 +77,8 @@ game2TotalPoints = np.array([179.8, 163.6, 180.2, 149.6, 152, 130.2, 142, 101.2,
 game3TotalPoints = np.array([139.9-39.7, 129-30.8, 122.9-45.9, 118.5-49.6, 105.7-30.2, 105.3-39.2, 96.6-29.1, 95.7-43.3, 83.1-34.8, 79.8-39.4, 71.3-27.9, 58.1-27.2, 53.1-23.6, 45.8-23.4])
 #make this for 12 instead of 6 games
 game3TotalPoints = game3TotalPoints*2
-TotalPoints = np.concatenate((game1TotalPoints,game3TotalPoints))
+game2TotalPoints = game2TotalPoints*2
+TotalPoints = np.concatenate((game1TotalPoints, game3TotalPoints))
 #easier way to crunch data if it's an ave
 avePtsArray = TotalPoints/12
 game1AvePtsArray = game1TotalPoints/12
@@ -84,8 +104,11 @@ def prompt():
     print("4. Predict Average Points based on Damage")
     print("5. Predict Average Points based on Healing")
     print("6. Predict Average Points based on Assists")
-    print("7. Predict with values")
-    print("8. Stop prediction software")
+    print("7. Predict Average Points based on Yang Participation")
+    print("8. Predict Average Points based on Yang Win Rate")
+    print("9. Predict Average Points based on Off Spawn Wins")
+    print("10. Predict with values")
+    print("11. Stop prediction software")
     print("")
 
 def use_model_predict(variable_list, variables, y, degree):
@@ -127,11 +150,23 @@ def predict_y_for_input():
         variable_list.append(choice)
         variables.append(handle.validate_range(input_, accepted_assists))
     elif choice == '7':
+        input_ = float(input("Enter Yang Participation: "))
+        variable_list.append(choice)
+        variables.append(handle.validate_range(input_, accepted_assists))
+    elif choice == '8':
+        input_ = float(input("Enter Yang Win Rate: "))
+        variable_list.append(choice)
+        variables.append(handle.validate_range(input_, accepted_assists))
+    elif choice == '9':
+        input_ = float(input("Enter Off Spawn Win Rate: "))
+        variable_list.append(choice)
+        variables.append(handle.validate_range(input_, accepted_assists))
+    elif choice == '10':
         predicted_y_ = use_model_predict(variable_list, variables, avePtsArray, 3)
         print(f"Hello sir your total points would be: {predicted_y_}")
         variable_list = []
         variables = []
-    elif choice == '8':  
+    elif choice == '11':  
         sys.exit()
     else:
         print("Invalid choice. Please try again.")

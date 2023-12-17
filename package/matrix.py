@@ -1,6 +1,6 @@
 import numpy as np
-from prediction import killsAve, endGameKills, avePtsArray, rankPtsAve, healing, damage, assists
-import function as fn
+from prediction import killsAve, endGameKills, avePtsArray, rankPtsAve, healing, damage, assists, yangPart, yangWin, offSpawn
+
 
 data_dict = {
     '1' : killsAve,
@@ -8,7 +8,10 @@ data_dict = {
     '3' : rankPtsAve,
     '4' : damage,
     '5' : healing,
-    '6' : assists 
+    '6' : assists,
+    '7' : yangPart,
+    '8' : yangWin,
+    '9' : offSpawn
 }
 
 def discern_var(var):
